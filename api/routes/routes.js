@@ -1,15 +1,23 @@
 'use strict';
 module.exports = function(app) {
-  var todoList = require('../controllers/controller');
+  var images = require('../controllers/controller');
 
   // todoList Routes
-  app.route('/tasks')
-    .get(todoList.list_all_tasks)
-    .post(todoList.create_a_task);
+  app.route('/images')
+    .get(images.images_in_range)
+    .post(images.add_image); 
+
+  app.route('/like')
+    .post(images.like_image)
+
+  app.route('/images/:imageId')
+    .get(images.get_all_image_info)
 
 
-  app.route('/tasks/:taskId')
-    .get(todoList.read_a_task)
-    .put(todoList.update_a_task)
-    .delete(todoList.delete_a_task);
+
+  app.route('/delete')
+    .delete(images.delete_all) 
+
+  app.route('/all')
+    .get(images.get_all_images)
 };
