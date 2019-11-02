@@ -4,6 +4,7 @@
 var mongoose = require('mongoose'),
   Image = mongoose.model('Images');
 
+
 // Query parameters are minLat, maxLat, minLong, and maxLong
 // Return lat, long, and imageId of all images the square
 exports.images_in_range = function(req, res) {
@@ -22,6 +23,7 @@ exports.images_in_range = function(req, res) {
   });
 };
 
+
 // Recieve image as base64 encoded string, user, lat, and long in the body of POST request
 // Save in the database as a new Image document
 exports.add_image = function(req, res) {
@@ -36,21 +38,9 @@ exports.add_image = function(req, res) {
   });
 };
 
-// Recieve imageId and liker as a query parameters, find Image by imageId
-// Add liker to the array of likes on the image
-exports.like_image = function(req, res) {
-  Image.findByIdAndUpdate(
-    req.query.imageId, 
-    { "$push": { "likes": req.query.liker } },
-    { "new": true, "upsert": true },
-    function (err, data) {
-      if (err) 
-        res.send(err);
-      res.json(data);
-    }
-  );
-};
 
+// Given imageId as path param
+// Finds image by ID and responds with all data associated with the image
 exports.get_all_image_info = function(req, res) {
   Image.findById(
     req.params.imageId, 
@@ -60,6 +50,23 @@ exports.get_all_image_info = function(req, res) {
       res.json(task);
   });
 };
+
+
+// Recieve imageId and liker as a query parameters, find Image by imageId
+// Add liker to the array of likes on the image
+exports.like_image = function(req, res) {
+  Image.findByIdAndUpdate(
+    req.query.imageId, 
+    { "$addToSet": { "likes": req.query.liker } },
+    function (err, data) {
+      if (err) 
+        res.send(err);
+      res.json(data);
+    }
+  );
+};
+
+
 
 
 // TODO: remove delete and get all after production
