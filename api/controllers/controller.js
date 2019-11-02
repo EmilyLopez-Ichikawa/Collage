@@ -41,7 +41,7 @@ exports.add_image = function(req, res) {
 
 // Given imageId as path param
 // Finds image by ID and responds with all data associated with the image
-exports.get_all_image_info = function(req, res) {
+exports.get_image_info = function(req, res) {
   Image.findById(
     req.params.imageId, 
     function(err, task) {
@@ -66,6 +66,18 @@ exports.like_image = function(req, res) {
   );
 };
 
+// Given username as query param
+// Send back all images from the user
+exports.get_user_images = function(req, res) {
+  Image.find(
+    {user: req.query.user},
+    function(err, data){
+      if(err)
+        res.send(err);
+      res.json(data);
+    }
+    );
+};
 
 
 
