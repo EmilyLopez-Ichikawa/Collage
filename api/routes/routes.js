@@ -16,6 +16,9 @@ module.exports = function(app) {
   app.route('/api/userImages')
     .get(images.get_user_images)
 
+  // app.route('/api/images/:imageId/png')
+  //   .post(images.upload_image)
+  //   .get(image.download_image)
 
 
   app.route('/api/delete')

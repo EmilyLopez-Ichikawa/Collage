@@ -27,14 +27,20 @@ exports.images_in_range = function(req, res) {
 // Recieve image as base64 encoded string, user, lat, and long in the body of POST request
 // Save in the database as a new Image document
 exports.add_image = function(req, res) {
-  var new_image = new Image(req.body);
-  new_image.save(
+  var data = req.body;
+  // console.log("~~~~~~~~~~~TASK~~~~~~~~~~~~~~");
+  // console.log("input data", data);
+  var newImage = new Image(data);
+  // console.log(newImage);
+  newImage.save(
     function(err, image) {
-      console.log("~~~~~~~~~~~TASK~~~~~~~~~~~~~~");
-      console.log(image);
-      if (err)
+      if (err){
         res.send(err);
-      res.json({success: 'true'});
+        // console.log("in save error" + err);
+      }else{
+        console.log("data saved in model" + image);
+        res.json(image);
+      }
   });
 };
 
@@ -42,11 +48,13 @@ exports.add_image = function(req, res) {
 // Given imageId as path param
 // Finds image by ID and responds with all data associated with the image
 exports.get_image_info = function(req, res) {
+  console.log(req.params);
   Image.findById(
     req.params.imageId, 
     function(err, task) {
       if (err)
         res.send(err);
+      console.log(task);
       res.json(task);
   });
 };
@@ -103,3 +111,6 @@ exports.get_all_images = function(req, res) {
     }
   );
 }
+
+
+
