@@ -8,6 +8,8 @@ var mongoose = require('mongoose'),
 // Query parameters are minLat, maxLat, minLong, and maxLong
 // Return lat, long, and imageId of all images the square
 exports.images_in_range = function(req, res) {
+  console.log("incoming request for images in range");
+  console.log(req.query);
   Image.find(
     { $and: [ { lat:  { $gt: req.query.minLat  } }, 
               { lat:  { $lt: req.query.maxLat  } },
@@ -19,7 +21,9 @@ exports.images_in_range = function(req, res) {
     function(err, data) {
       if (err)
         res.send(err);
-      res.json(data);
+      console.log("response from images in range");
+      console.log(data);
+      res.json({ data : data });
   });
 };
 
@@ -27,6 +31,7 @@ exports.images_in_range = function(req, res) {
 // Recieve image as base64 encoded string, user, lat, and long in the body of POST request
 // Save in the database as a new Image document
 exports.add_image = function(req, res) {
+  console.log("incoming request for saving image to database");
   var data = req.body;
   // console.log("~~~~~~~~~~~TASK~~~~~~~~~~~~~~");
   // console.log("input data", data);
@@ -48,6 +53,7 @@ exports.add_image = function(req, res) {
 // Given imageId as path param
 // Finds image by ID and responds with all data associated with the image
 exports.get_image_info = function(req, res) {
+  console.log("incoming request for getting all info from one image clicked on");
   console.log(req.params);
   Image.findById(
     req.params.imageId, 
@@ -77,6 +83,7 @@ exports.like_image = function(req, res) {
 // Given username as query param
 // Send back all images from the user
 exports.get_user_images = function(req, res) {
+  console.log("incoming request for getting all images from one user");
   Image.find(
     {user: req.query.user},
     function(err, data){
@@ -103,6 +110,7 @@ exports.delete_all = function(req, res) {
 
 // Get all images
 exports.get_all_images = function(req, res) {
+  console.log("incoming request for getting all images");
   Image.find({}, 
     function(err, data) {
       if (err)

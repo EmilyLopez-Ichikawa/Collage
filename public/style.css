@@ -1,0 +1,14 @@
+img {
+    height: 20vw;
+    margin: auto;
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    margin: 15vh;
+}
+
+.row {
+    margin-bottom: 15vh;
+}

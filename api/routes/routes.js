@@ -2,7 +2,6 @@
 module.exports = function(app) {
   var images = require('../controllers/controller');
 
-  // todoList Routes
   app.route('/api/images')
     .get(images.images_in_range)
     .post(images.add_image); 
@@ -16,11 +15,7 @@ module.exports = function(app) {
   app.route('/api/userImages')
     .get(images.get_user_images)
 
-  // app.route('/api/images/:imageId/png')
-  //   .post(images.upload_image)
-  //   .get(image.download_image)
-
-
+    
   app.route('/api/delete')
     .delete(images.delete_all) 
 
