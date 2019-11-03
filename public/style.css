@@ -2,6 +2,7 @@ img {
     height: 20vw;
     margin: auto;
     display: block;
+    max-width: 25vw;
 }
 
 h1 {

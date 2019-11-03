@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.route('/api/like')
     .post(images.like_image)
 
-  app.route('/api/images/:imageId')
+  app.route('/api/getInfo')
     .get(images.get_image_info)
 
   app.route('/api/userImages')

@@ -54,9 +54,10 @@ exports.add_image = function(req, res) {
 // Finds image by ID and responds with all data associated with the image
 exports.get_image_info = function(req, res) {
   console.log("incoming request for getting all info from one image clicked on");
-  console.log(req.params);
+  console.log(req.query.imageId);
   Image.findById(
-    req.params.imageId, 
+    req.query.imageId,
+    'lat long user likes image', 
     function(err, task) {
       if (err)
         res.send(err);
